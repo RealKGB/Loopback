@@ -20,6 +20,11 @@ struct ContentView: View {
             VideoPlayer(player: AVPlayer(url: videoURL))
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
+                    //if no video, CRASH!
+                    if !(FileManager.default.fileExists(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path + "/video.mp4")) {
+                        exit(420)
+                    }
+                    
                     //video player
                     let player = AVPlayer(url: videoURL)
                     let controller = AVPlayerViewController()
